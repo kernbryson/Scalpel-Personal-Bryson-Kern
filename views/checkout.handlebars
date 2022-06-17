@@ -1,0 +1,153 @@
+<link rel="stylesheet" href="/css/checkout.css">
+<h2 class="text-center">Checkout</h2>
+<form class="form checkout-form">
+    <div class="container">
+        {{#each cart as |cart|}}
+        <div class="row checkout-item">
+            <hr>
+            <div class="col-md-3 me-3 align-self-center">
+                <a href="/item/{{cart.item_id}}"><img src="/images/{{cart.item.image}}" class="thumbnail mw-100" alt="{{cart.item.name}}"></a>
+            </div>
+            <div class="col-md-3 align-self-center">
+                <a href="/item/{{cart.item_id}}"><h5>{{cart.item.name}}</h5></a>
+            </div>
+            {{#if is_rental}}
+            <div class="col-md-1 align-self-center">
+                <h5>${{cart.item.rental_price}}.00/day</h5>
+            </div>
+            <div class="col-md-1 align-self-center">
+               Days: <input type="number" class="form-control rental-days" data-cart-id="{{cart.id}}" value="{{cart.rental_days}}" />
+            </div>
+            {{else}}
+            <div class="col-md-1 align-self-center">
+                <h5>${{cart.item.buy_price}}.00</h5>
+            </div>
+            {{/if}}
+            <div class="col-md-2 align-self-center">
+                <h5>Quantity: {{cart.qty}}</h5>
+            </div>
+            <div class="col-md-1 align-self-center">
+                <div class="col-sm-100">
+                    <button type="click" checkout-id ={{id}} class="btn delete-btn">❌</button>
+                </div>
+            </div>
+        </div>
+        <hr>
+        {{/each}}
+    </div>
+<br>
+    <div class="container">
+        <div class="row">
+            <div class="card col-md-6">
+                <div class="card-body">
+                    {{!-- need to figure out how to get subtotal/tax/total --}}
+                    <div>
+                        <p>Subtotal: ${{subtotal}}</p>
+                        <p>Tax: ${{tax}}</p>
+                        <p>Shipping: ${{shipping}}</p>
+                        <h4><strong>Total: ${{total}}</strong></h4>
+                    </div>
+                    <br>
+                    <div>
+                        <h3>Payment </h3>
+                        <div class="list-group">
+                            {{#each payments as |payment|}}
+                            <div class="row">
+                                <div class="d-flex align-items-center">
+                                    <img
+                                    src="/images/cardimage.png"
+                                    class="rounded"
+                                    width="70"
+                                    />
+                                    <div class="d-flex justify-content-between flex-column ms-3">
+                                    <span id="cardName" class="h5 mb-1">{{payment.type}}</span>
+                                    <span id="cardNumber" class="small text-muted"
+                                        >XXX XXXX XXXX {{payment.last4}}</span
+                                    >
+                                </div>
+                                <div class="d-flex justify-content-between flex-column ms-3">
+                                    <input class="form-check-input payment-radio" type="radio" name="payment-radio" value="{{payment.id}}">
+                                </div>
+                            </div>
+                        </div>
+                            {{/each}}
+                           <div class="d-flex justify-content-between flex-column ms-3">
+                                <a href="/profile/payments">Manage Payment Methods</a>   
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card col-md-6">
+                <div class="card-body">
+                    <h4>Shipping Address</h4>
+                    {{#if shipAddresses}}
+                    {{#each shipAddresses as |address|}}
+                        <div class="card m-2 ">
+                            <div class="card-body">
+                                <h4 id="addressType" class="float-end m-4">{{address.type}}</h4>
+                                <h5 id="addressName" class="card-title">{{address.user.first_name}} {{address.user.last_name}}</h5>
+                                <h6>{{address.user.email}}</h6>
+                                <p id="address" class="card-text">
+                                {{address.addr1}} <span id="addressZip">{{address.zip}}</span>
+                                <span id="addressState">{{address.state}}</span>
+                                </p>
+                                <div class="d-flex justify-content-between flex-column ms-3">
+                                    <input class="form-check-input ship-address-radio" type="radio" name="ship-address-radio" value="{{address.id}}">
+                                </div>
+                            </div>
+                        </div>
+                    {{/each}}
+                    {{else}}
+                    <strong>Please Add a Shipping Address</strong>
+                    {{/if}}
+                    <br>
+                    <hr>
+                    <h4>Billing Address</h4>
+                    {{#if shipAddresses}}
+                    <div class="card m-2 ">
+                            <div class="card-body">
+                                <p>Same as Billing</p>
+                                <div class="d-flex justify-content-between flex-column ms-3">
+                                    <input class="form-check-input bill-address-radio" type="radio" name="bill-address-radio" value="0">
+                                </div>
+                            </div>
+                    </div>
+                    {{/if}}
+                    {{#if billAddresses}}
+                    {{#each billAddresses as |address|}}
+                        <div class="card m-2 ">
+                            <div class="card-body">
+                                <h4 id="addressType" class="float-end m-4">{{address.type}}</h4>
+                                <h5 id="addressName" class="card-title">{{address.user.first_name}} {{address.user.last_name}}</h5>
+                                <h6>{{address.user.email}}</h6>
+                                <p id="address" class="card-text">
+                                {{address.addr1}} <span id="addressZip">{{address.zip}}</span>
+                                <span id="addressState">{{address.state}}</span>
+                                </p>
+                                <div class="d-flex justify-content-between flex-column ms-3">
+                                    <input class="form-check-input bill-address-radio" type="radio" name="bill-address-radio" value="{{address.id}}">
+                                </div>
+                            </div>
+                        </div>
+                    {{/each}}
+                    {{else}}
+                    <strong>Please Add a Billing Address</strong>
+                    {{/if}}
+                    <div class="d-flex justify-content-between flex-column ms-3">
+                        <a href="/profile/addresses">Manage Addresses</a>   
+                    </div>
+                </div>
+            </div>
+        </div>
+<div class="row justify-content-center pt-3 self-align-center">
+        <div class="col-sm-100">
+        <button type="button" id="checkoutSubmit" class="btn btn-primary ">Place Order</button>
+        </div>
+    </div>
+    </div>
+
+    
+</form>
+<script src="/js/checkout.js"></script>

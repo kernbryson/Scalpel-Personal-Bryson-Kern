@@ -1,0 +1,54 @@
+<div class="row">
+    <div class="col-md-6">
+        <div>
+            <img src="/images/{{item.image}}" class="img-responsive" style="width:100%" alt="{{item.image}}">
+        </div>
+        <h3 class='item-title' data-attr="{{item.id}}">{{item.name}}</h3>
+        <div>
+            <p>{{item.description}} </p>
+        </div>
+    </div>
+    
+
+    <form class="col-md-6 review-form">
+        <div class="text-center" id="rating-ability-wrapper">
+            <h1>Leave a review!</h1>
+            <br>
+                <input type="hidden" id="selected_rating" name="selected_rating" value="" required="required">
+            <h1 class="bold rating-header" >
+                <span class="selected-rating">0</span><small> / 5</small>
+            </h1>
+            <button type="button" class="btnrating btn btn-default btn-lg"  data-attr="1" id="rating-star-1">
+                <i class="fa fa-star" aria-hidden="true"></i>
+            </button>
+            <button type="button" class="btnrating btn btn-default btn-lg" data-attr="2" id="rating-star-2">
+                <i class="fa fa-star" aria-hidden="true"></i>
+            </button>
+            <button type="button" class="btnrating btn btn-default btn-lg" data-attr="3" id="rating-star-3">
+                <i class="fa fa-star" aria-hidden="true"></i>
+            </button>
+            <button type="button" class="btnrating btn btn-default btn-lg" data-attr="4" id="rating-star-4">
+                <i class="fa fa-star" aria-hidden="true"></i>
+            </button>
+            <button type="button" class="btnrating btn btn-default btn-lg" data-attr="5" id="rating-star-5">
+                <i class="fa fa-star" aria-hidden="true"></i>
+            </button>
+        </div>
+        <br>
+        <div class="mb-3">
+            <textarea class="form-control" id="review_body" placeholder="Leave a comment here." rows="4"></textarea>
+            </div>
+        <div class="col-md-6 mx-auto d-grid">
+            <button class="btn btn-outline-danger" type="submit">
+                submit
+            </button>
+        </div>
+    </form>   
+       
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.14.1/moment.min.js"></script>
+
+<script src="/js/review.js"></script>
+
+  
+ 

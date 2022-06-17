@@ -1,0 +1,85 @@
+<div class="row pt-4" >
+<h2 class="text-center">My Cart</h2>
+<section>
+    <div class="container pt-3">
+        {{#each cart as |cart|}}
+        <div class="row cart-item">
+            
+            {{#if is_rental}}
+            <div class="col-md-2 align-self-center">
+                <a href="/item/{{cart.item.id}}"><img src="/images/{{cart.item.image}}" class="thumbnail mw-100"  alt="{{cart.item.name}}"/></a>
+            </div>
+            <div class="col-md-3 align-self-center" >
+                <a href="/item/{{cart.item.id}}" class="text-decoration-none text-color-black"><small>{{cart.item.name}}</small></a>
+            </div>
+            <div class="col-md-1 align-self-center">
+                <h5>${{cart.item.rental_price}}/day</h5>
+            </div>
+            <div class="col-md-1 align-self-center">
+               Days: <input type="number" class="form-control rental-days" data-cart-id="{{cart.id}}" value="{{cart.rental_days}}" />
+            </div>
+            <div class="col-md-2 align-self-center">
+                <p>Rental</p>
+            </div>
+            {{else}}
+            <div class="col-md-2 align-self-center">
+                <a href="/item/{{cart.item.id}}"><img src="/images/{{cart.item.image}}" class="thumbnail mw-100"  alt="{{cart.item.name}}"/></a>
+            </div>
+            <div class="col-md-3 align-self-center" >
+                <a href="/item/{{cart.item.id}}" class="text-decoration-none text-color-black"><small>{{cart.item.name}}</small></a>
+            </div>
+            <div class="col-md-2 align-self-center">
+                <h5>${{cart.item.buy_price}}.00</h5>
+            </div> 
+            <div class="col-md-2 align-self-center">
+                <p>Buy</p>
+            </div>
+            {{/if}}
+            
+            <div class="col-md-2 align-self-center">
+                <p>Quantity:{{cart.qty}} </p>
+            </div>
+            <div class="col-md-1 align-self-center">
+                <div class="col-sm-100">
+                    <button type="submit" data-cart-id="{{cart.id}}" class="btn delete-btn">❌</button>
+                </div>
+            </div>
+        </div>
+        <hr>
+     {{/each}}
+    </div>
+    <br>
+    {{#if cart}}
+    <div class="container">
+        <div class="row">
+            <div class="card col-md-12">
+                <div class="card-body">
+                    <div>
+                        <p>Subtotal: ${{subtotal}}</p>
+                        <p>Tax: ${{tax}}</p>
+                        <p>Shipping: ${{shipping}}</p>
+                        <h4><strong>Total: </strong>${{total}}</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row justify-content-center pt-3">
+        <div class="col-sm-100 text-center">
+        <a href='/checkout'><button type="submit" id ="checkout" class="btn btn-primary">Checkout</button></a>
+        <a href='/'><button type="submit" class="btn btn-secondary ">Continue Shopping</button></a>
+        </div>
+    </div>
+    {{else}}
+    <div class="row justify-content-center pt-3">
+        <div class="col-sm-100 text-center">
+        <h4>You have no items in your cart. Get to Shopping!</h4>
+        <br>
+        <br>
+        <a href='/'><button type="submit" class="btn btn-secondary ">Continue Shopping</button></a>
+        </div>
+    </div>
+    {{/if}}
+</section>
+</div>
+<script src="/js/cart.js"></script>

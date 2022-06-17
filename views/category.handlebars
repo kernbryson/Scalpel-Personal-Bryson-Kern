@@ -1,0 +1,24 @@
+<div class="row bg-dark" >
+    <div class="container">
+        <h1 class="text-center" style="color:white">{{categorySelected.name}}</h1>
+        <div class="row">
+             {{#each items as |item|}}
+            <div class="container item-card col-lg-3 col-md-4 col-sm-6 ">
+                <div class="card border-light mt-4">
+                    <div class="itemImaCard">
+                        <a href='/item/{{id}}'><img class="card-img-top item-img" src="/images/{{image}}" alt="Card image cap"></a>
+                    </div>
+                    <div class="card-body align-self-center rounded-bottom text-center" style="height:250px">
+                        <h5 class="card-title text-center pt-3 pb-2" style="overflow: hidden">{{name}}</h5>
+                        <p >Rating: <span class="rating_bar">{{reviews.rating}}</span></p>
+                        <p >Rent for: ${{rental_price}} a day</p>
+                        <p >Buy now for: ${{buy_price}}</p>
+                    </div>
+                </div>
+            </div>
+            {{/each}}
+        </div>
+    </div>
+</div>
+
+<script src="/js/rating.js"></script>
